@@ -24,6 +24,13 @@ const addToCart = (product) => {
     }
 };
 
+const deleteOneById = (id) => {
+    cart.splice(
+        cart.findIndex((item) => item.id === id),
+        1
+    );
+};
+
 watch(cart, (newCart) => {
     localStorage.setItem("cart", JSON.stringify(newCart));
 });
@@ -32,4 +39,5 @@ export const cartStore = reactive({
     cart,
     init,
     addToCart,
+    deleteOneById,
 });

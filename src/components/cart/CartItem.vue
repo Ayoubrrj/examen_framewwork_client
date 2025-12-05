@@ -1,7 +1,12 @@
 <script setup>
+import { cartStore } from "@/stores/cart";
 const props = defineProps({
     item: { type: Object, required: true },
 });
+
+const remove = () => {
+    cartStore.deleteOneById(props.item.id);
+};
 </script>
 
 <template>
@@ -24,9 +29,12 @@ const props = defineProps({
                 type="number"
                 class="form-input mt-1 block w-16 text-center rounded text-gray-700 border-gray-300 border"
                 v-model.number="item.quantity"
-                min="0"
+                min="1"
             />
-            <button class="ml-2 text-red-500 hover:text-red-700">
+            <button
+                class="ml-2 text-red-500 hover:text-red-700"
+                @click="remove"
+            >
                 <i class="fas fa-times"></i>
             </button>
         </div>
