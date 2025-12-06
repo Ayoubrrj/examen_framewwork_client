@@ -3,17 +3,13 @@ import { cartStore } from "@/stores/cart";
 const props = defineProps({
     item: { type: Object, required: true },
 });
-
-const remove = () => {
-    cartStore.deleteOneById(props.item.id);
-};
 </script>
 
 <template>
     <li class="flex justify-between items-center py-3">
         <div class="flex items-center">
             <img
-                :src="`https://picsum.photos/300/200/?random=${item.id}`"
+                :src="item.image"
                 alt="Product"
                 class="h-12 w-12 rounded-full mr-4"
             />
@@ -33,7 +29,7 @@ const remove = () => {
             />
             <button
                 class="ml-2 text-red-500 hover:text-red-700"
-                @click="remove"
+                @click="cartStore.deleteOneById(item.id)"
             >
                 <i class="fas fa-times"></i>
             </button>

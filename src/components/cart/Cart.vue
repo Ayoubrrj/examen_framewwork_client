@@ -1,12 +1,7 @@
 <script setup>
-import { onMounted } from "vue";
 import { cartStore } from "@/stores/cart";
 import CartItem from "@/components/cart/CartItem.vue";
 import CartPrice from "@/components/cart/CartPrice.vue";
-
-onMounted(() => {
-    cartStore.init();
-});
 </script>
 
 <template>

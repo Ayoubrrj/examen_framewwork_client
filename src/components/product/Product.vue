@@ -4,10 +4,6 @@ import { cartStore } from "@/stores/cart";
 const props = defineProps({
     product: { type: Object, required: true },
 });
-
-const add = () => {
-    cartStore.addToCart(props.product);
-};
 </script>
 
 <template>
@@ -24,7 +20,7 @@ const add = () => {
 
             <button
                 class="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                @click="add"
+                @click="cartStore.addToCart(product)"
             >
                 Ajouter
             </button>

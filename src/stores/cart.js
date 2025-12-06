@@ -1,12 +1,6 @@
-import { reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 
-const cart = reactive([]);
-
-const init = () => {
-    if (localStorage.cart) {
-        JSON.parse(localStorage.cart).forEach((item) => cart.push(item));
-    }
-};
+const cart = reactive(JSON.parse(localStorage.getItem("cart") || "[]"));
 
 const addToCart = (product) => {
     const item = cart.find((p) => p.id === product.id);
@@ -18,11 +12,31 @@ const addToCart = (product) => {
             id: product.id,
             name: product.name,
             price: product.price,
-            image: product.image,
+            image: `https://picsum.photos/300/200/?random=${product.id}`,
             quantity: 1,
         });
     }
 };
+
+const totalHTVA = computed(() => {
+    return cart
+        .reduce((total, item) => total + item.price * item.quantity, 0)
+        .toFixed(2);
+});
+
+const deliveryCost = ref(5);
+
+const taxe = computed(() => {
+    return Number(totalHTVA.value * 0.2).toFixed(2);
+});
+
+const totalPrice = computed(() => {
+    return (
+        Number(totalHTVA.value) +
+        Number(taxe.value) +
+        Number(deliveryCost.value)
+    ).toFixed(2);
+});
 
 const deleteOneById = (id) => {
     cart.splice(
@@ -31,13 +45,20 @@ const deleteOneById = (id) => {
     );
 };
 
-watch(cart, (newCart) => {
-    localStorage.setItem("cart", JSON.stringify(newCart));
-});
+watch(
+    cart,
+    (newCartItem) => {
+        localStorage.setItem("cart", JSON.stringify(newCartItem));
+    },
+    { deep: true }
+);
 
 export const cartStore = reactive({
     cart,
-    init,
+    totalHTVA,
+    deliveryCost,
+    taxe,
+    totalPrice,
     addToCart,
     deleteOneById,
 });
