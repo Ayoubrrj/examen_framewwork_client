@@ -52,6 +52,7 @@ watch(
     },
     { deep: true }
 );
+// le deep:true est nécessaire pour que le watcher regarde dans le details chaque donnée du localdulocal storage pour savoir si il fait ++ ou si il ajouter un objet cart
 
 export const cartStore = reactive({
     cart,

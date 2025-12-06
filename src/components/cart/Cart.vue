@@ -10,9 +10,11 @@ import CartPrice from "@/components/cart/CartPrice.vue";
 
         <div class="cart bg-white rounded-lg shadow animate__animated">
             <ul class="divide-y divide-gray-200 space-y-4 p-6">
-                <li v-for="item in cartStore.cart" :key="item.id">
-                    <CartItem :item="item" />
-                </li>
+                <CartItem
+                    v-for="item in cartStore.cart"
+                    :key="item.id"
+                    :item="item"
+                />
             </ul>
             <CartPrice />
         </div>

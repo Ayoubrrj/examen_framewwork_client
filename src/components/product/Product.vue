@@ -4,6 +4,8 @@ import { cartStore } from "@/stores/cart";
 const props = defineProps({
     product: { type: Object, required: true },
 });
+
+import MyButton from "../ui/MyButton.vue";
 </script>
 
 <template>
@@ -18,12 +20,7 @@ const props = defineProps({
             <h2 class="font-bold text-lg mb-2">{{ product.name }}</h2>
             <p class="text-gray-700">{{ product.price }} €</p>
 
-            <button
-                class="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                @click="cartStore.addToCart(product)"
-            >
-                Ajouter
-            </button>
+            <MyButton @click="cartStore.addToCart(product)"> Ajouter </MyButton>
         </div>
     </article>
 </template>
